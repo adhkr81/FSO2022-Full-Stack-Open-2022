@@ -1,11 +1,11 @@
 
-export function Filtered({ persons, searchbar }) {
+export function Filtered({ persons, searchbar, deleteName}) {
 
     if (searchbar === "") {
         return persons.map((current) => {
           return (
             <div key={current.id}>
-              {current.name} {current.number}
+              {current.name} {current.number} <button onClick={() => deleteName(current.id)}>DELETE</button>
             </div>
           )
         })} 
@@ -14,8 +14,8 @@ export function Filtered({ persons, searchbar }) {
         persons.filter((current) => {return current.name.toLowerCase().includes(searchbar.toLowerCase())})
         .map((current) => {
           return (
-            <div key={current.id}>
-              {current.name} {current.number}
+            <div key={current.name}>
+              {current.name} {current.number} <button onClick={() => deleteName(current.id)}>DELETE</button>
             </div>
           )
         })

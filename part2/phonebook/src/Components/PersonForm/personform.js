@@ -1,7 +1,4 @@
 
-
-
-
 export function PersonForm ({handleSubmit, handleChange}) {
 
   return (
@@ -19,7 +16,7 @@ export function PersonForm ({handleSubmit, handleChange}) {
 					number:{" "}
 					<input
 						name="number"
-						onhandleChange={(e) => {
+						onChange={(e) => {
 							handleChange(e);
 						}}
 					/>

@@ -1,0 +1,56 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  },
+  "persons": [
+    {
+      "name": "Arto Hellas",
+      "number": "123",
+      "id": 1
+    },
+    {
+      "name": "Ada Lovelace",
+      "number": "39-44-5323523",
+      "id": 2
+    },
+    {
+      "name": "Dan Abramov",
+      "number": "12-43-234345",
+      "id": 3
+    },
+    {
+      "name": "Mary Poppendieck",
+      "number": "39-23-6423122",
+      "id": 4
+    },
+    {
+      "name": "test",
+      "number": "123",
+      "id": 5
+    },
+    {
+      "name": "zero",
+      "number": "4066 5599 4611 4621",
+      "id": 9
+    },
+    {
+      "name": "fin",
+      "number": "4066 5599 4611 4621",
+      "id": 11
+    }
+  ]
+}
