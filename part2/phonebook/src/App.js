@@ -36,6 +36,7 @@ const App = () => {
 		const updatedArr = persons.map((curr) => {
 			return curr.name === newObj.name ? { name: newObj.name, number: newObj.number, id: newObj.number } : { name: curr.name, number: curr.number, id: curr.id };
 		});
+		console.log("aqiiiiii")
 		setPersons(updatedArr);
 		setMessage(`${newObj.name} was successfully updated`)
 		setTimeout(() => {
@@ -54,17 +55,13 @@ const App = () => {
 				const newObj = user[0];
 				newObj.number = newName.number;
 
-				service.update(id, newObj)
+				return service.update(id, newObj)
 					.then(findAndUpdate(newObj))
 					.catch((err) => {
 						console.log(err)
-						setMessage(`[ERROR] ${newObj.name} was already deleted from server`)
-						setTimeout(() => {
-							setMessage(null)
-						  }, 5000)
 					});
 
-				return;
+
 			}
 		}
 
