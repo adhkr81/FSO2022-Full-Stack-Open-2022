@@ -7,7 +7,7 @@ export function Display({ countriesSearch, setCountriesSearch, setWeather, weath
 	useEffect(() => {
 		async function fetchWeather(singleCity) {
 			try {
-				const response = await axios.get(`http://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${singleCity}&aqi=no`);
+				const response = await axios.get(`https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${singleCity}&aqi=no`);
 				setWeather(response.data);
 				console.log(response);
 			} catch (error) {
