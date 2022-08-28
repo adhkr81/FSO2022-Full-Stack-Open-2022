@@ -48,7 +48,7 @@ const App = () => {
 		e.preventDefault();
 
 		if (persons.find(isRepeated)) {
-			window.confirm(`${newName.name} is already added to phonebook, replace the old number with a new one ?`);
+			if (window.alert(`${newName.name} is already added to phonebook, replace the old number with a new one ?`));
 			{
 				const user = findId(newName.name);
 				const id = user[0].id;
@@ -59,10 +59,8 @@ const App = () => {
 					.then(findAndUpdate(newObj))
 					.catch((err) => {
 						console.log(err)
-					});
-
-
-			}
+					})
+			} 
 		}
 
 		setPersons([...persons, newName]);
@@ -75,7 +73,7 @@ const App = () => {
 	}
 
 	function deleteName(id) {
-		window.confirm(`Do you want to delete? ${newName.name}`);
+		if (window.alert(`Do you want to delete? ${newName.name}`));
 		{
 			service
 				.remove(id)
@@ -91,19 +89,21 @@ const App = () => {
 	}
 
 	return (
-		<div>
-			<h2>Phonebook</h2>
-				<Alert message={message}/>
+
+		<div className="d-flex align-items-center flex-column space-between mt-5">
+
 				<SearchBar handleFilter={handleFilter} />
 
-			<h2>add a new</h2>
+				<Alert message={message}/>
+
+				<h2 className="mt-4 mb-3">add</h2>
 				<PersonForm handleSubmit={handleSubmit} handleChange={handleChange} />
 
-			<h2>Numbers</h2>
-			<div>
+				<h2 className="mt-4 mb-3">Contacts</h2>
 				<Filtered persons={persons} searchbar={searchbar} deleteName={deleteName} />
-			</div>
+
 		</div>
+
 	);
 };
 
