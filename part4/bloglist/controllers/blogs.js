@@ -8,7 +8,7 @@ const jwt = require("jsonwebtoken")
 // POST NEW BLOG  
 blogRouter.post('/', async (request, response) => {
 
-    console.log("aqui")
+    console.log(request.body)
 
     const body = request.body
     const token = request.token
@@ -18,7 +18,7 @@ blogRouter.post('/', async (request, response) => {
     }
     const user = await User.findById(decodedToken.id)
 
-    if (!body.title || !body.url || !body.likes) {
+    if (!body.title || !body.url) {
       console.log(body.title)
       console.log(body.url)
       return response.status(400).json()
@@ -57,10 +57,8 @@ blogRouter.delete("/delete/:id", async (request, response) => {
   const { id } = request.params
 
   const token = request.token
-  const decodedToken = jwt.verify(token, process.env.SECRET)
 
-  console.log(token)
-  console.log(decodedToken)
+  const decodedToken = jwt.verify(token, process.env.SECRET)
 
   if (!decodedToken.id) {
     return response.status(401).json({ error: "token missing or invalid"})
@@ -98,6 +96,27 @@ blogRouter.patch("/update/:id", async (request, response) => {
     return response.status(500).json()
   }
 })
+
+//LIKE BUTTON PUT
+blogRouter.put("/:id", async (request, response) => {
+  const { id } = request.params
+  const body = request.body
+
+  try {
+    const updated = await Blog.findOneAndUpdate(
+      {_id: id},
+      { ...body },
+      { new: true, runValidators: true})
+    
+    return response.status(200).json(updated)
+
+  } catch (error) {
+    console.log(error)
+    return response.status(500).json()
+  }
+
+})
+
 
 
   module.exports = blogRouter
