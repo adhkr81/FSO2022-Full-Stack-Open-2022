@@ -33,7 +33,9 @@ function App() {
 		setCountriesSearch(countries.filter((country) => country.name.common.toLowerCase().includes(search.name.toLowerCase())));
 	}
 
-	console.log(weather);
+
+	const API_KEY = process.env.REACT_APP_API_KEY;
+	console.log(API_KEY)
 
 	return (
 		<div className="App">
