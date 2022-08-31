@@ -1,8 +1,15 @@
 import { useState, useEffect } from 'react'
+
+//COMPONENTS
 import Blog from './components/Blog'
+import CreateBlog from './components/CreateBlog'
 import Notification from './components/Notification'
+import Togglable from './components/Togglable'
+
+//SERVICES
 import blogService from './services/blogs'
 import loginService from './services/login'
+
 
 const App = () => {
 
@@ -12,14 +19,11 @@ const App = () => {
   const [blogs, setBlogs] = useState([])
   const [message, setMessage] = useState(null)
   const [color, setColor] = useState('')
-
   const [newBlog, setNewBlog] = useState(
-    {
-      title : "",
-      author : "",
-      url : ""
-    }
-  )
+    {title : "", author : "", url : ""}
+    )
+
+
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
@@ -34,7 +38,7 @@ const App = () => {
     )  
   }, [])
 
-
+//LOGIN ROUTE
   const handleLogin = async (event) => {
     event.preventDefault()
     
@@ -59,23 +63,14 @@ const App = () => {
     }
   }
 
-  const handleLogout = async (event) => {
-    event.preventDefault()
-    window.localStorage.removeItem('loggedBlogappUser')
-    setUser(null)
-  }
-
-  const handleChange = (e) => {
-    setNewBlog({...newBlog, [e.target.name] : e.target.value})
-  } 
-
+//CREATE NEW BLOG ROUTE
   const handleCreate = async (e) => {
     e.preventDefault()
     
     try {
       blogService.create(newBlog)    
       setNewBlog({ title : "", author : "", url : ""})
-      setMessage("`Blog was successfully added`")
+      setMessage("Blog was successfully added")
       setColor('green')
       setTimeout(() => {
         setMessage(null)
@@ -89,6 +84,36 @@ const App = () => {
         }, 5000)
     }
   }
+
+//DELETE BLOG
+  const handleDelete = async (event) => {
+    let blogId = event.target.id
+
+    try {
+      blogService.deleteBlog(blogId)
+      setMessage("Blog was successfully deleted")
+      setColor('green')
+      setTimeout(() => {
+        setMessage(null)
+      }, 5000)
+    } catch (error) {
+      console.log(error)
+      setMessage("Cannot delete blog")
+      setColor('red')
+      setTimeout(() => {
+        setMessage(null)
+      }, 5000)
+    }
+}
+
+//LOGOUT 
+  const handleLogout = async (event) => {
+    event.preventDefault()
+    window.localStorage.removeItem('loggedBlogappUser')
+    setUser(null)
+  }
+
+
 
 
 
@@ -126,30 +151,19 @@ const App = () => {
         
         <div>
           <h2>blogs</h2>
-          <p>{user.username} logged in <button onClick={handleLogout}>log out</button></p>
-    
-          <form onSubmit={handleCreate}>
-            <div>
-              <label>Title: </label>
-              <input onChange={handleChange} name="title"/>
-            </div>
-            <div>
-              <label>Author: </label>
-              <input onChange={handleChange} name="author"/>
-            </div>
-            <div>
-              <label>Url: </label>
-              <input onChange={handleChange} name="url"/>
-            </div>
-            <div>
-              <button type="submit">add</button>
-            </div>
-          </form>
-    
+          <p>{user.username} logged in 
+              <button onClick={handleLogout}>log out</button>
+          </p>
+          
+          <Togglable buttonLabel="new blog">
+              <CreateBlog handleCreate={handleCreate} newBlog={newBlog} setNewBlog={setNewBlog}/>
+          </Togglable>
           <br/>
          
-          {blogs.map(blog =>
-            <Blog key={blog.id} blog={blog} />
+          {blogs
+            .sort((a, b) => a.likes - b.likes)
+            .map(blog =>
+              <Blog key={blog.id} blog={blog} handleDelete={handleDelete}/>
           )}
         </div>)}
 

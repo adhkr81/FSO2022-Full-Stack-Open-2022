@@ -1,7 +1,11 @@
-const Blog = ({blog}) => (
+
+const Blog = ({blog, handleDelete}) => {
+
+
+return (
   <div>
-    {blog.title} {blog.author}
+      {blog.title} - Likes {blog.likes} <button id={blog._id} onClick={handleDelete}>remove</button>
   </div>  
 )
-
+}
 export default Blog
