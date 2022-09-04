@@ -3,8 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.16.4",
-    "@testing-library/react": "^13.1.1",
     "@testing-library/user-event": "^14.1.1",
     "axios": "^0.27.2",
     "prop-types": "^15.8.1",
@@ -37,5 +35,10 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:3003"
+  "proxy": "http://localhost:3003",
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.3.0",
+    "cypress": "^10.7.0"
+  }
 }
