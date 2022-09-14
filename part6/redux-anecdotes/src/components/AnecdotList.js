@@ -1,6 +1,10 @@
 import { useDispatch, useSelector } from "react-redux"
-import { addVote } from "../reducers/anecdoteReducer"
+
 import { addVoteSlice } from "../reducers/anecdotesSlice"
+import { showVote, clearDisplay } from '../reducers/notificationSlice'
+
+// REDUCER WITHOUT TOOLKIT
+// import { addVote } from "../reducers/anecdoteReducer"
 
 
 export function AnecdoteList () {
@@ -9,9 +13,11 @@ export function AnecdoteList () {
     const anecdotes = useSelector(state => state.sliceTest)
     console.log(anecdotes)
 
-    const vote = (id) => {
-        console.log('vote', id)
-        dispatch(addVoteSlice(id))
+    const vote = (anecdote) => {
+        console.log('vote', anecdote.id)
+        dispatch(addVoteSlice(anecdote.id))
+        dispatch(showVote(anecdote.content))
+        setTimeout(() => {dispatch(clearDisplay(anecdote.content))}, 5000)
       }
 
     return (
@@ -24,7 +30,7 @@ export function AnecdoteList () {
           </div>
           <div>
             has {anecdote.votes}
-            <button onClick={() => vote(anecdote.id)}>vote</button>
+            <button onClick={() => vote(anecdote)}>vote</button>
           </div>
         </div>
       )}
