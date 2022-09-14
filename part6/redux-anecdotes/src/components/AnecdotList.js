@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux"
 
-import { addVoteSlice } from "../reducers/anecdotesSlice"
+import { addNewVote } from "../reducers/anecdotesSlice"
 import { showVote, clearDisplay } from '../reducers/notificationSlice'
 
 // REDUCER WITHOUT TOOLKIT
@@ -15,7 +15,7 @@ export function AnecdoteList () {
 
     const vote = (anecdote) => {
         console.log('vote', anecdote.id)
-        dispatch(addVoteSlice(anecdote.id))
+        dispatch(addNewVote(anecdote))
         dispatch(showVote(anecdote.content))
         setTimeout(() => {dispatch(clearDisplay(anecdote.content))}, 5000)
       }
